@@ -1,0 +1,28 @@
+<!-- clases: editing y completed-->
+<!--La clase 'completed' (en la cual salen los items tachados) solo va a aparecer si todo.completado es true -->
+<!--Para clase 'editing' se crea la variable booleana editando-->
+<!--¿Como controlar el doble click de un elemento?-->
+
+
+<!--1ª condicion: para definir el check dependiendo del estado del todo se crean 2 elementos FormControl: chkCompletado e txtInput -->
+<!--2ª condicion: la clase 'editing' va a estar unicamente si estamos editando (la propiedad booleana editando pasa a ser true) -->
+<li [class.completed]="todoInput.completado" [class.editing]="editando" class="completed">
+
+
+    <div class="view">
+        <!-- este check es un campo FormControl que viene definido por el valor booleano de completado del todo. Si es false no tiene check y si es true viene con el check-->
+        <input class="toggle" type="checkbox" [formControl]="chkCompletado">
+        <!-- muestra el texto -->
+        <!-- Clase EDITANDO cuando se hace doble click salta la funcion editar() que hará que la propiedad booleana editando pase a ser true -->
+        <label (dblclick)="editar()">{{todoInput.texto}}</label>
+        <!-- boton para borrar-->
+        <button class="destroy" (click)="borrar()"></button>
+
+    </div>
+
+    <!--  muestra el input al hacer doble click para modificar el texto del TODO -->
+    <!-- referencial local con un numeral => #inputFisico / en el ts se hace referencia a este input fisico mediante @ViewChild('inputFisico') de tipo ElementRef;-->
+    <!-- blur=> cuando pierde el foco. la variable editando pasa a false -->
+    <input class="edit" type="text" [formControl]="txtInput" (blur)="terminarEdicion()" #inputFisico>
+
+</li>
